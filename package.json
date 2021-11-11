@@ -1,10 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "# App: Calendar Carousel",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,11 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "googleapis": "^39.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^2.0.5",
     "mongoose": "^6.0.12",
+    "node.js": "^0.0.1-security",
     "nodemon": "^2.0.15"
   }
 }
