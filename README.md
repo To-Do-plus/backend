@@ -15,3 +15,42 @@
 ## MVP
 
 - The minimum viable product would let the user input and delete tasks to be done as well as times the tasks would take individually and link this with a calendar for accountability.
+
+## Wireframe
+![Wireframe](/wireframe.png)
+<br />
+
+## Domain Model
+![Domain Model](/domain_model.png)
+<br />
+
+## Project Management and User Stories
+[Trello](https://trello.com/b/4ndc5YjL/todoplus)
+
+## Database Schema
+
+```json
+Event:
+{
+  "summary": "Appointment",
+  "location": "Somewhere",
+  "start": {
+    "dateTime": "2011-06-03T10:00:00.000-07:00",
+    "timeZone": "America/Los_Angeles"
+  },
+  "end": {
+    "dateTime": "2011-06-03T10:25:00.000-07:00",
+    "timeZone": "America/Los_Angeles"
+  },
+  "recurrence": [
+    "RRULE:FREQ=WEEKLY;UNTIL=20110701T170000Z",
+  ],
+  "attendees": [
+    {
+      "email": "attendeeEmail",
+      # Other attendee's data...
+    },
+    # ...
+  ],
+}
+```
