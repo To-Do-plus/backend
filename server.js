@@ -15,12 +15,14 @@ app.use(cors());
 app.use(express.json());
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3001;
+
 // const { google } = require('googleapis');
 // const { OAuth2 } = google.auth;
 // // Clients id and secret from OAuth
 // const clientId = '800440768090-n9kc75hsra6cfeq27kvu0fhgc90d1cbb.apps.googleusercontent.com';
 // const oAuth2Client = new OAuth2(`${clientId}`,'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');
 // oAuth2Client.setCredentials({refresh_token:'1//04ZR6IoRygN8BCgYIARAAGAQSNgF-L9Ir8SdvuqvlJZKci6ITB754N6Fj60LKWF59TMBCQs7padXdbQqr8nv1TVkZ07Y-vsEVzw'});
+
 
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true});
@@ -35,9 +37,9 @@ app.get('/test',(req,res)=> {
 });
 app.listen(PORT, () => console.log(`Listening on Port : ${PORT}`));
 
-
 app.post('/events',postEvent);
 app.get('/seed', sample);
+
 
 
 let Event = require('./modules/schema.js');
@@ -131,4 +133,12 @@ function sample(request,response){
 //   return console.log(`Sorry I'm busy`);
 // });
 
+
+// Route Setups
+// Get/Put/Post/Delete Routes
+
+// Seed Array if Any - maybe an enter tasks here? or tester?
+
+// Functions:
+// Get Tasks(inc.Auth) / post tasks / delete tasks / put tasks
 
