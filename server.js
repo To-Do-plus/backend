@@ -50,17 +50,22 @@ app.listen(PORT, () => console.log(`Listening on Port : ${PORT}`));
 
 let Event = require('./modules/schema.js');
 
-// async function getEvent(req, res) {
-//   try {
-//     let postEntry = new Event(newEvent);
-//     postEntry.save();
-//     res.status(200).send(postEntry);
-//   }
+async function getEvent(req, res) {
+  try {
+    console.log(req.query);
+    let filterQ = {};
+    if (req.query.status) {
+      let { status } = req.query;
+      filterQ.status = status;
+    }
+    const item = await Event.find(filterQ);
+    res.status(200).send(item);
+  }
 
-//   catch (err) {
-//     res.status(500).send('error posting: ', err.message);
-//   }
-// }
+  catch (err) {
+    res.status(500).send('error posting: ', err.message);
+  }
+}
 
 async function postEvent(req, res) {
   let newEvent = req.body;
@@ -81,15 +86,42 @@ async function postEvent(req, res) {
 //clear the database
 async function bombTheBase(req, res) {
   try {
-    await DatabaseEntry.deleteMany({});
+    await Event.deleteMany({});
     console.log('Database cleared')
-      ;
+    ;
     res.status(200).send('cleared');
   }
   catch (e) {
     console.log('error:', e.message);
   }
 }
+
+async function deleteEvent (req, res){
+  let id = req.params.id;
+  try{
+    let deletedEvent = await Event.findByIdAndDelete(id);
+    console.log(id);
+    res.status(200).send(deletedEvent);
+  }
+  catch(e){
+    res.status(500).send(`Your Event was not deleted in server: ${e.message}`);
+  }
+}
+
+async function putEvent (req, res){
+  let putObj = req.body;
+  let id = req.params.id;
+  try{
+    let updateEvent = await Event.findByIdAndUpdate(id, putObj,{new: true, overwrite: true});
+    console.log(updateEvent);
+    res.status(200).send(updateEvent);
+  }
+  catch(e){
+    res.status(500).send(`Your Event was not updated in server: ${e.message}`);
+  }
+}
+
+
 
 function sample(request, response) {
   const seed = [
