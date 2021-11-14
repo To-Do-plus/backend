@@ -25,24 +25,42 @@ const PORT = process.env.PORT || 3001;
 
 
 mongoose.connect(process.env.MONGO_CONNECTION_STRING,
-  { useNewUrlParser: true, useUnifiedTopology: true});
+  { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', () => console.log('db is connected'));
 
-app.get('/test',(req,res)=> {
+app.get('/', (request, response) => response.status(200).send('This is the root. It works!'));
+app.get('/test', (req, res) => {
   res.send('test');
 });
-app.listen(PORT, () => console.log(`Listening on Port : ${PORT}`));
-
-app.post('/events',postEvent);
+app.get('/clear', bombTheBase);
 app.get('/seed', sample);
 
+app.get('/events', getEvent);
+app.post('/events', postEvent);
+app.delete('/events/:id', deleteEvent);
+app.put('/events/:id', putEvent);
+
+
+app.listen(PORT, () => console.log(`Listening on Port : ${PORT}`));
 
 
 let Event = require('./modules/schema.js');
+
+// async function getEvent(req, res) {
+//   try {
+//     let postEntry = new Event(newEvent);
+//     postEntry.save();
+//     res.status(200).send(postEntry);
+//   }
+
+//   catch (err) {
+//     res.status(500).send('error posting: ', err.message);
+//   }
+// }
 
 async function postEvent(req, res) {
   let newEvent = req.body;
@@ -60,16 +78,30 @@ async function postEvent(req, res) {
   }
 }
 
-function sample(request,response){
+//clear the database
+async function bombTheBase(req, res) {
+  try {
+    await DatabaseEntry.deleteMany({});
+    console.log('Database cleared')
+      ;
+    res.status(200).send('cleared');
+  }
+  catch (e) {
+    console.log('error:', e.message);
+  }
+}
+
+function sample(request, response) {
   const seed = [
-    {summary: 'Test',
+    {
+      summary: 'Test',
       location: 'The test area',
       description: 'This is a test',
       start: {
         dateTime: '01/01/22',
         timeZone: '01/01/22',
       },
-      end:{
+      end: {
         dateTime: '01/01/22',
         timeZone: '01/01/22',
       },
