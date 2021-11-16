@@ -1,6 +1,5 @@
 'use strict';
 
-
 // Express server
 const express = require('express');
 
