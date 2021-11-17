@@ -87,7 +87,7 @@ async function bombTheBase(req, res) {
   try {
     await Event.deleteMany({});
     console.log('Database cleared')
-    ;
+      ;
     res.status(200).send('cleared');
   }
   catch (e) {
@@ -95,27 +95,27 @@ async function bombTheBase(req, res) {
   }
 }
 
-async function deleteEvent (req, res){
+async function deleteEvent(req, res) {
   let id = req.params.id;
-  try{
+  try {
     let deletedEvent = await Event.findByIdAndDelete(id);
     console.log(id);
     res.status(200).send(deletedEvent);
   }
-  catch(e){
+  catch (e) {
     res.status(500).send(`Your Event was not deleted in server: ${e.message}`);
   }
 }
 
-async function putEvent (req, res){
+async function putEvent(req, res) {
   let putObj = req.body;
   let id = req.params.id;
-  try{
-    let updateEvent = await Event.findByIdAndUpdate(id, putObj,{new: true, overwrite: true});
+  try {
+    let updateEvent = await Event.findByIdAndUpdate(id, putObj, { new: true, overwrite: true });
     console.log(updateEvent);
     res.status(200).send(updateEvent);
   }
-  catch(e){
+  catch (e) {
     res.status(500).send(`Your Event was not updated in server: ${e.message}`);
   }
 }
@@ -128,6 +128,7 @@ function sample(request, response) {
       summary: 'Test',
       location: 'The test area',
       description: 'This is a test',
+      occupation: 20,
       start: {
         dateTime: '01/01/22',
         timeZone: '01/01/22',
