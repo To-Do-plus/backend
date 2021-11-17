@@ -129,7 +129,7 @@ function sample(request, response) {
       summary: 'Test',
       location: 'The test area',
       description: 'This is a test',
-      occupado: 20,
+      occupation: 20,
       start: {
         dateTime: '01/01/22',
         timeZone: '01/01/22',

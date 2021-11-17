@@ -6,7 +6,7 @@ const eventSchema = new mongoose.Schema({
   summary: { type: String },
   location: { type: String },
   description: { type: String },
-  occupado: { type: Number },
+  occupation: { type: Number },
   start: {
     dateTime: { type: String },
     timeZone: { type: String },
