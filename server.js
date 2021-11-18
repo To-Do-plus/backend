@@ -42,7 +42,7 @@ app.get('/events', getEvent);
 app.post('/events', postEvent);
 app.delete('/events/:id', deleteEvent);
 app.put('/events/:id', putEvent);
-
+app.use('*', (req,res) => res.status(500).send('route not found'));
 
 app.listen(PORT, () => console.log(`Listening on Port : ${PORT}`));
 
@@ -62,7 +62,7 @@ async function getEvent(req, res) {
   }
 
   catch (err) {
-    res.status(500).send('error posting: ', err.message);
+    res.status(500).send(`error getting:  ${err.message}`);
   }
 }
 
@@ -78,7 +78,7 @@ async function postEvent(req, res) {
   }
 
   catch (err) {
-    res.status(500).send('error posting: ', err.message);
+    res.status(500).send(`error posting:  ${err.message}`);
   }
 }
 
@@ -86,12 +86,11 @@ async function postEvent(req, res) {
 async function bombTheBase(req, res) {
   try {
     await Event.deleteMany({});
-    console.log('Database cleared')
-      ;
+    console.log('Database cleared');
     res.status(200).send('cleared');
   }
   catch (e) {
-    console.log('error:', e.message);
+    console.log(`error clearing:  ${e.message}`);
   }
 }
 
@@ -148,7 +147,7 @@ function sample(request, response) {
   response.status(200).send('Seeded DB');
 
 }
-
+ 
 
 // const calendar = google.calendar({version: 'v3', auth: oAuth2Client});
 
